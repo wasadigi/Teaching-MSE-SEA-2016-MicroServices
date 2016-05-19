@@ -5,6 +5,20 @@ node {
 
 	 // We have received the IP of the Docker host from a Jenkins job parameter
 	echo "We will contact our micro-service via: ${MICROSERVICE_URL}"
+	
+	// Get some code from a GitHub repository
+	git url: 'https://github.com/wasadigi/Teaching-MSE-SEA-2016-MicroServices.git'
+
+	// Ask Jenkins to execute a groovy script to setup the Maven and NodeJS tools (could not do it in Jenkinsfile because of the sandbox)
+	dir('cd-pipeline') {
+		sh 'curl --data-urlencode script@setup.groovy http://localhost:8080/scriptText'
+	}
+	// Get a ref to the Maven and Node tools configured in Jenkins (so far, they need to be configured manually after booting the Docker container!)						
+	def mvnHome = tool 'M3'
+	env.PATH = "${mvnHome}/bin:${env.PATH}"
+	def npmHome = tool 'N1'
+	env.PATH = "${npmHome}/bin:${env.PATH}"
+	
 
 	/*------------------------------------------------------------------------------*/
 	stage 'Commit'
