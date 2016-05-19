@@ -25,6 +25,15 @@ node {
 	/*------------------------------------------------------------------------------*/
 	
 	echo "We don't know what to do in the commit stage..."
+	// Build an executable jar of Game Dock with maven and build a corresponding Docker image
+	dir('microservices/ClockService/') {
+		sh "mvn clean package"		
+	}
+	sh "mkdir -p docker-images/service-clock/tmp"
+	sh "cp microservices/ClockService//target/*SNAPSHOT.jar docker-images/service-clock/tmp/"
+	dir('docker-images/service-clock') {
+		sh 'docker build -t sea/service_clock .'
+	}
 
 	/*------------------------------------------------------------------------------*/
 	stage 'Validation'
