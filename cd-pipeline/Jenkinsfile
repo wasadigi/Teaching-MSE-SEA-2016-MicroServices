@@ -4,7 +4,8 @@ node {
 	/*------------------------------------------------------------------------------*/
 
 	 // We have received the IP of the Docker host from a Jenkins job parameter
-	echo "We will contact our micro-service via: ${MICROSERVICE_URL}"
+	echo "We will contact our clock micro-service via: ${CLOCK_MICROSERVICE_URL}"
+	echo "We will contact our beers micro-service via: ${BEERS_MICROSERVICE_URL}"
 	
 	// Get some code from a GitHub repository
 	git url: 'https://github.com/wasadigi/Teaching-MSE-SEA-2016-MicroServices.git'

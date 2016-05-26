@@ -5,10 +5,10 @@ services:
     restart: always
     dns: "8.8.8.8"
     ports:
-     - "18080:8080"
+     - "28001:8080"
   beers-service:
     image: sea/service_beers
     restart: always
     dns: "8.8.8.8"
     ports:
-     - "28080:8080"
+     - "28002:8080"
