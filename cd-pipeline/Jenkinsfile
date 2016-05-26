@@ -24,23 +24,39 @@ node {
 	stage 'Commit'
 	/*------------------------------------------------------------------------------*/
 	
-	echo "We don't know what to do in the commit stage..."
+	echo "Build the clock micro-service and create a Docker image"
 	// Build an executable jar of Game Dock with maven and build a corresponding Docker image
 	dir('microservices/ClockService/') {
 		sh "mvn clean package"		
 	}
 	sh "mkdir -p docker-images/service-clock/tmp"
-	sh "cp microservices/ClockService//target/*SNAPSHOT.jar docker-images/service-clock/tmp/"
+	sh "cp microservices/ClockService/target/*SNAPSHOT.jar docker-images/service-clock/tmp/"
 	dir('docker-images/service-clock') {
 		sh 'docker build -t sea/service_clock .'
 	}
+	
+	echo "Build the beers micro-service and create a Docker image"
+	// Build an executable jar of Game Dock with maven and build a corresponding Docker image
+	dir('microservices/BeersService/') {
+		sh "mvn clean package"		
+	}
+	sh "mkdir -p docker-images/service-beers/tmp"
+	sh "cp microservices/BeersService/target/*SNAPSHOT.jar docker-images/service-beers/tmp/"
+	dir('docker-images/service-beers') {
+		sh 'docker build -t sea/service_beers .'
+	}
+	
 
 	/*------------------------------------------------------------------------------*/
 	stage 'Validation'
 	/*------------------------------------------------------------------------------*/
 	
-	echo "We don't know what to do in the validation stage..."
-
+	echo "Create a fresh test environment, by UP'ing a Docker Compose topology"
+	dir('docker-topologies/topology-runtime') {
+		sh "docker-compose down || true"
+		sh "docker-compose up &"
+	}
+		
 	/*------------------------------------------------------------------------------*/
 	stage 'End'
 	/*------------------------------------------------------------------------------*/
