@@ -1,0 +1,18 @@
+{
+  "name": "api-tests",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Reference project showing how to integrate Probe Dock with Jasmine2",
+  "scripts": {
+    "test": "npm install && node jasmine2-runner.js"
+  },
+  "author": "Olivier Liechti",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "jasmine": "^2.3.2",
+    "probedock-node": "^0.2.2",
+    "supertest": "^1.2.0",
+    "supertest-as-promised": "^3.0.0"
+  }
+}
