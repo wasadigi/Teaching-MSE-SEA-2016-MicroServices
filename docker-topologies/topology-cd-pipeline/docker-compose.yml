@@ -11,3 +11,10 @@ services:
     volumes:
 #     - jenkins-data:/var/jenkins_home
      - /var/run/docker.sock:/var/run/docker.sock
+  sonar:
+    image: sonarqube
+    restart: always
+    dns: "8.8.8.8"
+    ports:
+      - "9000:9000"
+      - "9092:9092" 
