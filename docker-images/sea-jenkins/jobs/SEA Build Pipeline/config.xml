@@ -16,6 +16,11 @@
           <description></description>
           <defaultValue>http://192.168.99.100:28002</defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>SONAR_URL</name>
+          <description></description>
+          <defaultValue>http://192.168.99.100:9000</defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>

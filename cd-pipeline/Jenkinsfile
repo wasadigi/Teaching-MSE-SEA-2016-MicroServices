@@ -6,6 +6,7 @@ node {
 	 // We have received the IP of the Docker host from a Jenkins job parameter
 	echo "We will contact our clock micro-service via: ${CLOCK_MICROSERVICE_URL}"
 	echo "We will contact our beers micro-service via: ${BEERS_MICROSERVICE_URL}"
+	echo "We will access SonarQube via: ${SONAR_URL}"
 	
 	// Get some code from a GitHub repository
 	git url: 'https://github.com/wasadigi/Teaching-MSE-SEA-2016-MicroServices.git'
@@ -29,12 +30,18 @@ node {
 	// Build an executable jar of Game Dock with maven and build a corresponding Docker image
 	dir('microservices/ClockService/') {
 		sh "mvn clean package"		
-	}
+	}		
 	sh "mkdir -p docker-images/service-clock/tmp"
 	sh "cp microservices/ClockService/target/*SNAPSHOT.jar docker-images/service-clock/tmp/"
 	dir('docker-images/service-clock') {
 		sh 'docker build -t sea/service_clock .'
 	}
+
+	echo "Ask SonarQube to run a static analysis of the code; results will be available in Sonar Web UI"
+	dir('microservices/ClockService/') {
+		sh "mvn sonar:sonar -Dsonar.host.url=${SONAR_URL}"	
+	}
+
 	
 	echo "Build the beers micro-service and create a Docker image"
 	// Build an executable jar of Game Dock with maven and build a corresponding Docker image
@@ -45,6 +52,11 @@ node {
 	sh "cp microservices/BeersService/target/*SNAPSHOT.jar docker-images/service-beers/tmp/"
 	dir('docker-images/service-beers') {
 		sh 'docker build -t sea/service_beers .'
+	}
+
+	echo "Ask SonarQube to run a static analysis of the code; results will be available in Sonar Web UI"
+	dir('microservices/BeersService/') {
+		sh "mvn sonar:sonar -Dsonar.host.url=${SONAR_URL}"	
 	}
 	
 
