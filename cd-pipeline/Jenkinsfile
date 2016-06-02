@@ -74,7 +74,7 @@ node {
 		def appIsReady = false
 		try {
 			echo "Checking Spring Boot status page via ${CLOCK_MICROSERVICE_URL}"
-			sh "set +e; curl -f -sL -w \"%{http_code}\\n\" ${CLOCK_MICROSERVICE_URL} -o /dev/null; echo \$? > springBootAppStatus; return 0"
+			sh "set +e; curl -f -sL -w \"%{http_code}\\n\" ${CLOCK_MICROSERVICE_URL}/health -o /dev/null; echo \$? > springBootAppStatus; return 0"
 			def status = readFile('springBootAppStatus').trim()
 			echo 'status: ' + status
 			appIsReady = (status == '0')
