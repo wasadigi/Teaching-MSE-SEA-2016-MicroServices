@@ -91,7 +91,7 @@ node {
 	dir('validation') {
 		sh './build-image.sh'
 	}
-	sh "docker run -e CLOCK_API_PREFIX=${env.CLOCK_MICROSERVICE_URL} sea/validation-api-tests"
+	sh "docker run -e CLOCK_API_PREFIX=${CLOCK_MICROSERVICE_URL} sea/validation-api-tests"
 	echo "API tests have been run."
 
 		
