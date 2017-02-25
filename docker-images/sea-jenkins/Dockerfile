@@ -1,10 +1,12 @@
-FROM jenkins:1.651.1
+FROM jenkins:2.32.2
 
 #
 # Install the collection of pipeline plugins on top of the default jenkins installation
 #
-COPY plugins.txt /usr/share/jenkins/ref/
-RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
+#COPY plugins.txt /usr/share/jenkins/ref/
+#RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
+
+RUN /usr/local/bin/install-plugins.sh nodejs workflow-aggregator github-organization-folder pipeline-stage-view blueocean
 
 #
 # Install Docker

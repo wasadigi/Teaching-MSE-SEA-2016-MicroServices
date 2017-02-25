@@ -18,8 +18,8 @@ node {
 	// Get a ref to the Maven and Node tools configured in Jenkins (so far, they need to be configured manually after booting the Docker container!)						
 	def mvnHome = tool 'M3'
 	env.PATH = "${mvnHome}/bin:${env.PATH}"
-	def npmHome = tool 'N1'
-	env.PATH = "${npmHome}/bin:${env.PATH}"
+	//def npmHome = tool 'N1'
+	//env.PATH = "${npmHome}/bin:${env.PATH}"
 	
 
 	/*------------------------------------------------------------------------------*/
